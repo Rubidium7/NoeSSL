@@ -8,7 +8,7 @@ COLOUR_BLUE=\033[0;34m
 COLOUR_END=\033[0m
 
 #Flags
-FLAGS = -Wall -Werror -Wextra -I includes -g
+FLAGS = -Wall -Werror -Wextra -I includes -g -lm
 
 #Directory locations
 MAIN_DIR = main/
@@ -20,7 +20,7 @@ OBJS_DIR = obj/
 #Sources by folder
 _MAIN := main.c process_command.c
 _ALGS := md5.c
-_UTILS := 
+_UTILS := printing_utils.c
 _ERRORS := error.c
 
 ALL_SRCS := $(addprefix $(MAIN_DIR), $(_MAIN)), \

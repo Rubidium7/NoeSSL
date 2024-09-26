@@ -14,6 +14,12 @@
 # define MD5_SIZE 32
 
 //md5 constants
+# define A 0x67452301
+# define B 0xefcdab89
+# define C 0x98badcfe
+# define D 0x10325476
+
+//does it need to be uint32? vv
 # define S (uint32_t[]){7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, \
                        5,  9, 14, 20, 5,  9, 14, 20, 5,  9, 14, 20, 5,  9, 14, 20, \
                        4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23, \
@@ -35,5 +41,13 @@
                        0x655b59c3, 0x8f0ccc92, 0xffeff47d, 0x85845dd1, \
                        0x6fa87e4f, 0xfe2ce6e0, 0xa3014314, 0x4e0811a1, \
                        0xf7537e82, 0xbd3af235, 0x2ad7d2bb, 0xeb86d391}
+
+
+# define F(x, y, z) ((x & y) | (~x & z))
+# define G(x, y, z) ((x & z) | (y & ~z))
+# define H(x, y, z) (x ^ y ^ z)
+# define I(x, y, z) (y ^ (x | ~z))
+
+# define ROT_LEFT(x, n) ((x << n) | (x >> (32 - n)))
 
 #endif
