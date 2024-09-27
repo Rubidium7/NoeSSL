@@ -23,6 +23,7 @@ void	md5(const char *input);
 //printing_utils.c
 void	print_in_hex(const uint8_t *str, size_t len);
 void	print_array(const char **array);
+void	print_hash(uint32_t *hash, size_t len);
 
 //strjoin.c
 char	*ft_strjoin(char const *s1, char const *s2);

@@ -30,22 +30,18 @@ uint8_t	*add_padding(const char *str, size_t len)
 
 //input broken into 512-bit blocks (16 * 32-bit words)
 
-char	*hash(const uint8_t	*str, size_t len)
+uint32_t	*hash_loop(const uint8_t *str, size_t len, uint32_t *hash)
 {
 	size_t	i = 0;
-	uint32_t h0 = A;
-	uint32_t h1 = B;
-	uint32_t h2 = C;
-	uint32_t h3 = D;
 	
 	while (i < ((len + 4)))
 	{
 		uint32_t	*words = (uint32_t *)(str + i);
 
-		uint32_t a = h0;
-		uint32_t b = h1;
-		uint32_t c = h2;
-		uint32_t d = h3;
+		uint32_t a = hash[0];
+		uint32_t b = hash[1];
+		uint32_t c = hash[2];
+		uint32_t d = hash[3];
 
 		for (size_t j = 0; j != 64; j++)
 		{
@@ -78,38 +74,28 @@ char	*hash(const uint8_t	*str, size_t len)
 			c = b;
 			b = temp;
 		}
-		h0 += a;
-		h1 += b;
-		h2 += c;
-		h3 += d;
+		hash[0] += a;
+		hash[1] += b;
+		hash[2] += c;
+		hash[3] += d;
 
 		i += 64;
 	}
-	uint8_t *p;
- 
-    // display result
- 
-    p=(uint8_t *)&h0;
-    printf("%2.2x%2.2x%2.2x%2.2x", p[0], p[1], p[2], p[3]);
- 
-    p=(uint8_t *)&h1;
-    printf("%2.2x%2.2x%2.2x%2.2x", p[0], p[1], p[2], p[3]);
- 
-    p=(uint8_t *)&h2;
-    printf("%2.2x%2.2x%2.2x%2.2x", p[0], p[1], p[2], p[3]);
- 
-    p=(uint8_t *)&h3;
-    printf("%2.2x%2.2x%2.2x%2.2x\n", p[0], p[1], p[2], p[3]);
-	return (NULL);
+	return (hash);
 }
 
 void	md5(const char *str)
 {
+	uint32_t hash[4] = {A, B, C, D};
 	size_t len = ((((strlen(str) + 8) / 64) + 1) * 64) - 8 + 4;
 
 	uint8_t	*padded = add_padding(str, len);
-
-	hash(padded, len);
-	
+	if (!padded)
+	{
+		error(MALLOC_FAIL);
+		return ;
+	}
+	hash_loop(padded, len, hash);
+	print_hash(hash, 4);
 	free(padded);
 }
