@@ -1,7 +1,7 @@
 #include "vessl.h"
 
 
-int	process_command(char **args)
+int	process_command(int arg_amount, const char **args)
 {
 	int i;
 
@@ -11,23 +11,18 @@ int	process_command(char **args)
 	if (i == COMMAND_AMOUNT)
 	{
 		print_command_error(args[0]);
-		return (WRONG_COMMAND);
+		return (FAIL);
 	}
+	char *input = get_input(arg_amount, args);
+	if (!input)
+		return (FAIL);
 	switch (i)
 	{
 		case 0:
-			if (!args[1])
-				break;
-			char *hash = md5(args[1]);
-			if (hash)
-			{
-				printf("%s\n", hash);
-				free(hash);
-			}
-			else
-				dprintf(STDERR_FILENO, "malloc failed\n");
+			md5(input);
 			break;
 	
 	}
+	free(input);
 	return (SUCCESS);
 }

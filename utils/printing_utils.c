@@ -14,3 +14,9 @@ void	print_in_hex(const uint8_t *str, size_t len)
 	
 	printf("\n");
 }
+
+void	print_array(const char **array)
+{
+	for (int i = 0; array[i]; i++)
+		printf("[%d] %s\n", i, array[i]);
+}

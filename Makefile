@@ -18,9 +18,9 @@ ERRORS_DIR = errors/
 OBJS_DIR = obj/
 
 #Sources by folder
-_MAIN := main.c process_command.c
+_MAIN := main.c process_command.c get_input.c
 _ALGS := md5.c
-_UTILS := printing_utils.c
+_UTILS := printing_utils.c strjoin.c
 _ERRORS := error.c
 
 ALL_SRCS := $(addprefix $(MAIN_DIR), $(_MAIN)), \
