@@ -2,7 +2,7 @@
 #ifndef DEFINES_H
 # define DEFINES_H
 
-# define NAME "VeSSL"
+# define NAME "NoeSSL"
 # define TRUE 1
 # define FALSE 0
 # define FAIL 1

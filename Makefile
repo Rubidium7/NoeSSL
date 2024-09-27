@@ -1,5 +1,5 @@
 #Target Binary Program
-NAME = VeSSL
+NAME = NoeSSL
 
 #Color scheme
 COLOUR_GREEN=\033[0;32m
