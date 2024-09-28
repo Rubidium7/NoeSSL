@@ -11,12 +11,12 @@ uint8_t	*add_padding(const char *str, size_t len)
 
 	memcpy(out, str, strlen(str));
 	out[strlen(str)] = 128; //in binary = 10000000
-	// printf("%ld\n", (len + 4) * 8);
-	memcpy(out + len - 4, &og_len_in_bits, 4);
+	memcpy(out + len - 8, &og_len_in_bits, 8);
 
 	// uint8_t *p;
-	// p=(uint8_t *)&og_len_in_bits;
-	// printf("%2.2x%2.2x%2.2x%2.2x\n", p[0], p[1], p[2], p[3]);
+	// p = (uint8_t *)&og_len_in_bits;
+	// printf("%2.2x%2.2x%2.2x%2.2x", p[0], p[1], p[2], p[3]);
+	// printf("%2.2x%2.2x%2.2x%2.2x\n", p[4], p[5], p[6], p[7]);
 
 	// printf("%s\n", out);
 	// print_in_hex(out, len);
@@ -28,13 +28,11 @@ uint8_t	*add_padding(const char *str, size_t len)
 // NOT ~
 // XOR ^
 
-//input broken into 512-bit blocks (16 * 32-bit words)
-
 uint32_t	*hash_loop(const uint8_t *str, size_t len, uint32_t *hash)
 {
 	size_t	i = 0;
 	
-	while (i < ((len + 4)))
+	while (i < len)
 	{
 		uint32_t	*words = (uint32_t *)(str + i);
 
@@ -87,7 +85,7 @@ uint32_t	*hash_loop(const uint8_t *str, size_t len, uint32_t *hash)
 void	md5(const char *str)
 {
 	uint32_t hash[4] = {A, B, C, D};
-	size_t len = ((((strlen(str) + 8) / 64) + 1) * 64) - 8 + 4;
+	size_t len = ((((strlen(str) + 8) / 64) + 1) * 64);
 
 	uint8_t	*padded = add_padding(str, len);
 	if (!padded)

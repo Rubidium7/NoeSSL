@@ -9,7 +9,7 @@
 # define SUCCESS 0
 # define NO_FD -2
 # define ERROR_FD -1
-# define BUFFER_SIZE 256
+# define BUFFER_SIZE 500000
 # define COMMAND_AMOUNT 2
 # define COMMANDS (char*[]){"md5", "sha256"}
 # define FLAG_AMOUNT 1
