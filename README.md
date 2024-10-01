@@ -1,5 +1,5 @@
 # NoeSSL
-project of recreating OpenSSL from scratch
+beginnings of a project of partially recreating OpenSSL from scratch
 
 ## to-do
 - [ ] core features
